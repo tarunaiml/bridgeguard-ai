@@ -6,6 +6,8 @@ import { generateSimulatedData } from '../lib/simulation';
 import { calculateHealthScore } from '../lib/healthScore';
 
 interface SimulationContextType {
+  mode: 'SIMULATION' | 'MANUAL INPUT';
+  setMode: (mode: 'SIMULATION' | 'MANUAL INPUT') => void;
   isRunning: boolean;
   setIsRunning: (val: boolean) => void;
   condition: ConditionClass;
@@ -13,11 +15,14 @@ interface SimulationContextType {
   currentData: SensorData | null;
   health: BridgeHealth | null;
   history: SensorData[];
+  updateManualData: (data: Partial<SensorData>) => void;
+  calculateManualHealth: (overrideData?: SensorData) => void;
 }
 
 const SimulationContext = createContext<SimulationContextType | undefined>(undefined);
 
 export const SimulationProvider = ({ children }: { children: ReactNode }) => {
+  const [mode, setMode] = useState<'SIMULATION' | 'MANUAL INPUT'>('SIMULATION');
   const [isRunning, setIsRunning] = useState(true);
   const [condition, setCondition] = useState<ConditionClass>('HEALTHY');
   const [currentData, setCurrentData] = useState<SensorData | null>(null);
@@ -27,7 +32,7 @@ export const SimulationProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (isRunning) {
+    if (mode === 'SIMULATION' && isRunning) {
       interval = setInterval(() => {
         const newData = generateSimulatedData(condition, currentData || undefined);
         const newHealth = calculateHealthScore(newData);
@@ -39,16 +44,47 @@ export const SimulationProvider = ({ children }: { children: ReactNode }) => {
           if (updated.length > 50) return updated.slice(updated.length - 50);
           return updated;
         });
-      }, 1000); // update every second
+      }, 1000);
     }
 
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning, condition, currentData]);
+  }, [mode, isRunning, condition, currentData]);
+
+  const updateManualData = (data: Partial<SensorData>) => {
+    if (currentData) {
+      setCurrentData({ ...currentData, ...data });
+    }
+  };
+
+  const calculateManualHealth = (overrideData?: SensorData) => {
+    const dataToUse = overrideData || currentData;
+    if (dataToUse) {
+      const newHealth = calculateHealthScore(dataToUse);
+      setHealth(newHealth);
+      setCondition(newHealth.condition);
+      
+      const now = new Date();
+      const newData = { ...dataToUse, timestamp: now.toISOString().substring(11, 19) };
+      setCurrentData(newData);
+
+      setHistory((prev) => {
+        const updated = [...prev, { ...newData, score: newHealth.score }];
+        if (updated.length > 50) return updated.slice(updated.length - 50);
+        return updated;
+      });
+    }
+  };
 
   return (
-    <SimulationContext.Provider value={{ isRunning, setIsRunning, condition, setCondition, currentData, health, history }}>
+    <SimulationContext.Provider value={{ 
+      mode, setMode, 
+      isRunning, setIsRunning, 
+      condition, setCondition, 
+      currentData, health, history,
+      updateManualData, calculateManualHealth
+    }}>
       {children}
     </SimulationContext.Provider>
   );

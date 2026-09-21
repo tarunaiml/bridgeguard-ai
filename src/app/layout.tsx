@@ -17,11 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#070B14] text-slate-300 min-h-screen flex flex-col`}>
+    <html lang="en">
+      <body className={`${inter.className} bg-[#F5F7FA] text-[#111827] min-h-screen flex flex-col`}>
         <SimulationProvider>
           <Header />
-          <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+          <main className="flex-1 w-full max-w-[1200px] mx-auto p-4 md:p-6 lg:p-8">
             {children}
           </main>
         </SimulationProvider>

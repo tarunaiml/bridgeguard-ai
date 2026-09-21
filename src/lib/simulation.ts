@@ -39,6 +39,8 @@ export const generateSimulatedData = (condition: ConditionClass, previousData?: 
       break;
   }
 
+  const stress = condition === 'HEALTHY' ? 10 : condition === 'MINOR DAMAGE' ? 35 : condition === 'MODERATE DAMAGE' ? 65 : 90;
+
   const rms = Math.max(0, baseRms + generateNoise(noiseLevel));
   const tiltX = baseTiltX + generateNoise(noiseLevel * 0.5);
   const tiltY = baseTiltY + generateNoise(noiseLevel * 0.5);
@@ -60,6 +62,7 @@ export const generateSimulatedData = (condition: ConditionClass, previousData?: 
     tiltX: parseFloat(tiltX.toFixed(2)),
     tiltY: parseFloat(tiltY.toFixed(2)),
     temperature: parseFloat((baseTemp + generateNoise(1)).toFixed(1)),
-    humidity: 61 + Math.round(generateNoise(4))
+    humidity: 61 + Math.round(generateNoise(4)),
+    stress
   };
 };

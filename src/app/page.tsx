@@ -1,72 +1,55 @@
 "use client";
 
 import { HeroStatus } from "@/components/Dashboard/HeroStatus";
-import { HardwareStatus } from "@/components/Dashboard/HardwareStatus";
+import { SensorInputs } from "@/components/Dashboard/SensorInputs";
 import { VibrationChart } from "@/components/Charts/VibrationChart";
 import { SimulationControls } from "@/components/Simulation/SimulationControls";
 import { PredictionCard } from "@/components/Dashboard/PredictionCard";
 import { AnomalyMonitor } from "@/components/Dashboard/AnomalyMonitor";
 import { HealthTrend } from "@/components/Charts/HealthTrend";
-import { FeatureImportance } from "@/components/Charts/FeatureImportance";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { ProjectProgress } from "@/components/ProjectProgress";
 
 export default function Dashboard() {
   return (
-    <div className="space-y-8 pb-12">
+    <div className="pb-12 max-w-[1000px] mx-auto">
       
-      {/* Title & Status */}
-      <div className="mb-8">
-        <h2 className="text-3xl font-black text-white tracking-tighter mb-2">BRIDGEGUARD AI</h2>
-        <div className="flex items-center space-x-3">
-          <span className="text-sm font-bold text-slate-400 tracking-widest uppercase">AI-Powered Structural Health Monitoring</span>
-          <span className="px-2 py-0.5 rounded border border-slate-700 bg-slate-800 text-[10px] font-bold tracking-widest uppercase text-slate-300">Prototype Mode</span>
-        </div>
+      {/* Title */}
+      <div className="mb-8 mt-4 text-center md:text-left">
+        <h2 className="text-3xl font-black text-[#111827] tracking-tighter mb-2">DASHBOARD</h2>
+        <p className="text-sm font-bold text-[#64748B] tracking-widest uppercase mt-1">Prototype System Overview</p>
       </div>
 
-      {/* Hero Area: Health Score + KPIs */}
+      {/* Health Score + 4 Key Metrics */}
       <HeroStatus />
 
-      {/* System Status & Vibration */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1">
-          <HardwareStatus />
-        </div>
-        <div className="lg:col-span-2">
-          <VibrationChart />
-        </div>
-      </div>
+      {/* Sensor Input / Manual Input */}
+      <SensorInputs />
 
-      {/* Simulator Control */}
-      <div className="mt-8">
-        <SimulationControls />
-      </div>
+      {/* Vibration Chart */}
+      <VibrationChart />
 
-      {/* AI Prediction & Anomaly */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+      {/* Bridge Condition Simulator */}
+      <SimulationControls />
+
+      {/* AI Prediction + Anomaly + Recommendation */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <PredictionCard />
         <AnomalyMonitor />
       </div>
 
-      {/* Charts & Trends */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-        <HealthTrend />
-        <FeatureImportance />
-      </div>
+      {/* Health Trend */}
+      <HealthTrend />
 
-      {/* Architecture */}
-      <div className="mt-12">
-        <ArchitectureDiagram />
-      </div>
+      {/* System Pipeline */}
+      <ArchitectureDiagram />
 
-      {/* Progress */}
-      <div className="mt-8">
-        <ProjectProgress />
-      </div>
+      {/* Project Progress */}
+      <ProjectProgress />
 
       {/* Disclaimer */}
-      <div className="mt-16 pt-8 border-t border-slate-800 text-center">
-        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+      <div className="mt-16 pt-8 border-t border-[#E2E8F0] text-center">
+        <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">
           BridgeGuard AI is an academic proof-of-concept.
           <br/>
           The system is not intended for real-world bridge safety certification or structural engineering decisions.

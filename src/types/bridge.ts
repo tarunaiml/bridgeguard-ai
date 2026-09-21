@@ -13,6 +13,7 @@ export interface SensorData {
   tiltY: number;
   temperature: number;
   humidity: number;
+  stress: number;
   score?: number;
 }
 

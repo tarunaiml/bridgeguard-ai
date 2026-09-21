@@ -22,8 +22,8 @@ export const calculateHealthScore = (data: SensorData): BridgeHealth => {
   envScore = Math.max(0, Math.min(100, envScore));
 
   // 4. Anomaly condition (20%)
-  // Simple heuristic based on stdDev and peakAccel
-  const anomalyFactor = (data.stdDev * 1.5 + data.peakAccel) / 5.0;
+  // Simple heuristic based on stdDev, peakAccel, and stress
+  const anomalyFactor = ((data.stdDev * 1.5 + data.peakAccel) / 5.0) + (data.stress / 200);
   let anomalyProbability = Math.max(5, Math.min(95, anomalyFactor * 100));
   let anomalyScore = 100 - anomalyProbability;
 
