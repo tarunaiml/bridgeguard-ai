@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/Layout/Sidebar";
 import { Header } from "@/components/Layout/Header";
 import { SimulationProvider } from "@/context/SimulationContext";
 
@@ -19,15 +18,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#050810] text-gray-300 min-h-screen flex`}>
+      <body className={`${inter.className} bg-[#070B14] text-slate-300 min-h-screen flex flex-col`}>
         <SimulationProvider>
-          <Sidebar />
-          <div className="flex-1 flex flex-col max-h-screen overflow-hidden">
-            <Header />
-            <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
-              {children}
-            </main>
-          </div>
+          <Header />
+          <main className="flex-1 w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8">
+            {children}
+          </main>
         </SimulationProvider>
       </body>
     </html>

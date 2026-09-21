@@ -1,75 +1,82 @@
-import { Cpu, Wifi, Database, BrainCircuit, Activity, ActivitySquare } from 'lucide-react';
+import { Cpu, Wifi, Database, BrainCircuit, Activity, LineChart, Server } from 'lucide-react';
 
 export function ArchitectureDiagram() {
   return (
-    <div className="bg-[#0B1120] border border-gray-800 rounded-xl p-6">
-      <h3 className="text-white font-medium uppercase text-sm tracking-wider mb-8 text-center">System Architecture</h3>
+    <div className="bg-[#0D1422] border border-slate-800 rounded-2xl p-8 shadow-sm">
+      <h3 className="text-white font-bold uppercase text-xs tracking-widest mb-10 text-center">System Pipeline Architecture</h3>
       
-      <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 max-w-4xl mx-auto">
+      <div className="flex flex-col lg:flex-row items-center justify-center space-y-6 lg:space-y-0 lg:space-x-4 max-w-6xl mx-auto">
         
-        {/* Hardware Layer */}
         <div className="flex flex-col items-center">
-          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 w-32 flex flex-col items-center text-center">
-            <ActivitySquare className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">MPU6050<br/>DHT11</span>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-lg relative">
+            <div className="absolute -top-3 bg-slate-800 text-[9px] font-bold text-slate-300 px-2 py-0.5 rounded border border-slate-700 uppercase tracking-widest">Physical Layer</div>
+            <Activity className="w-6 h-6 text-slate-400 mb-3 mt-2" />
+            <span className="text-xs font-bold text-slate-200 tracking-wide uppercase">Miniature Bridge</span>
           </div>
-          <div className="h-6 w-px bg-gray-600 my-1 md:hidden"></div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">Sensors</div>
         </div>
 
-        <div className="hidden md:flex items-center text-gray-600">→</div>
+        <div className="hidden lg:flex items-center text-slate-600">→</div>
+        <div className="lg:hidden h-6 w-px bg-slate-700"></div>
 
         <div className="flex flex-col items-center">
-          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 w-32 flex flex-col items-center text-center">
-            <Cpu className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">ESP32<br/>Microcontroller</span>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-lg relative">
+            <div className="absolute -top-3 bg-slate-800 text-[9px] font-bold text-slate-300 px-2 py-0.5 rounded border border-slate-700 uppercase tracking-widest">Sensing</div>
+            <Server className="w-6 h-6 text-cyan-500 mb-3 mt-2" />
+            <span className="text-xs font-bold text-slate-200 tracking-wide uppercase">MPU6050<br/>DHT11</span>
           </div>
-          <div className="h-6 w-px bg-gray-600 my-1 md:hidden"></div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">Edge Node</div>
         </div>
 
-        <div className="hidden md:flex items-center text-gray-600">→</div>
+        <div className="hidden lg:flex items-center text-slate-600">→</div>
+        <div className="lg:hidden h-6 w-px bg-slate-700"></div>
 
         <div className="flex flex-col items-center">
-          <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4 w-32 flex flex-col items-center text-center">
-            <Wifi className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">IoT / Wi-Fi<br/>Gateway</span>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-lg relative">
+            <div className="absolute -top-3 bg-slate-800 text-[9px] font-bold text-slate-300 px-2 py-0.5 rounded border border-slate-700 uppercase tracking-widest">Edge Processing</div>
+            <Cpu className="w-6 h-6 text-cyan-500 mb-3 mt-2" />
+            <span className="text-xs font-bold text-slate-200 tracking-wide uppercase">ESP32</span>
           </div>
-          <div className="h-6 w-px bg-gray-600 my-1 md:hidden"></div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">Network</div>
         </div>
 
-        <div className="hidden md:flex items-center text-gray-600">→</div>
+        <div className="hidden lg:flex items-center text-slate-600">→</div>
+        <div className="lg:hidden h-6 w-px bg-slate-700"></div>
 
-        {/* Software Layer */}
         <div className="flex flex-col items-center">
-          <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4 w-32 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-            <Database className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">Feature<br/>Extraction</span>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-lg relative">
+            <div className="absolute -top-3 bg-slate-800 text-[9px] font-bold text-slate-300 px-2 py-0.5 rounded border border-slate-700 uppercase tracking-widest">Transmission</div>
+            <Wifi className="w-6 h-6 text-cyan-500 mb-3 mt-2" />
+            <span className="text-xs font-bold text-slate-200 tracking-wide uppercase">Wi-Fi / IoT</span>
           </div>
-          <div className="h-6 w-px bg-gray-600 my-1 md:hidden"></div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">Data Pipeline</div>
         </div>
 
-        <div className="hidden md:flex items-center text-gray-600">→</div>
+        <div className="hidden lg:flex items-center text-slate-600">→</div>
+        <div className="lg:hidden h-6 w-px bg-slate-700"></div>
 
-        <div className="flex flex-col items-center">
-          <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4 w-32 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-            <BrainCircuit className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">Random Forest<br/>Model</span>
+        <div className="flex flex-col items-center border-l-2 border-dashed border-slate-700 pl-4 lg:pl-0 lg:border-l-0 lg:border-t-2 lg:pt-6 relative mt-4 lg:mt-0">
+          <div className="absolute -left-[45px] top-1/2 -translate-y-1/2 -rotate-90 lg:rotate-0 lg:-top-6 lg:left-1/2 lg:-translate-x-1/2 text-[9px] font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap">Cloud / UI Layer</div>
+          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)] relative">
+            <Database className="w-6 h-6 text-cyan-400 mb-3 mt-2" />
+            <span className="text-xs font-bold text-cyan-100 tracking-wide uppercase">Data<br/>Processing</span>
           </div>
-          <div className="h-6 w-px bg-gray-600 my-1 md:hidden"></div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">AI Engine</div>
         </div>
 
-        <div className="hidden md:flex items-center text-gray-600">→</div>
+        <div className="hidden lg:flex items-center text-cyan-800">→</div>
+        <div className="lg:hidden h-6 w-px bg-cyan-900"></div>
 
         <div className="flex flex-col items-center">
-          <div className="bg-cyan-900/20 border border-cyan-800/50 rounded-lg p-4 w-32 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-            <Activity className="w-8 h-8 text-cyan-400 mb-2" />
-            <span className="text-xs font-medium text-gray-300">Health Score<br/>Dashboard</span>
+          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)] relative">
+            <BrainCircuit className="w-6 h-6 text-cyan-400 mb-3 mt-2" />
+            <span className="text-xs font-bold text-cyan-100 tracking-wide uppercase">Random Forest</span>
           </div>
-          <div className="text-[10px] text-gray-500 uppercase mt-2 hidden md:block">User Interface</div>
+        </div>
+
+        <div className="hidden lg:flex items-center text-cyan-800">→</div>
+        <div className="lg:hidden h-6 w-px bg-cyan-900"></div>
+
+        <div className="flex flex-col items-center">
+          <div className="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-4 w-40 flex flex-col items-center text-center shadow-[0_0_15px_rgba(6,182,212,0.1)] relative">
+            <LineChart className="w-6 h-6 text-cyan-400 mb-3 mt-2" />
+            <span className="text-xs font-bold text-cyan-100 tracking-wide uppercase">Health Score Dashboard</span>
+          </div>
         </div>
 
       </div>
