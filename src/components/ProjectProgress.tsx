@@ -17,11 +17,10 @@ export function ProjectProgress() {
           <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-4">Completed</div>
           <ul className="space-y-3">
             {[
-              'Project concept',
-              'SHM architecture',
-              'ML approach selected',
-              'Dashboard prototype',
-              'Simulation engine'
+              'Dashboard Prototype',
+              'Simulation Engine',
+              'System Architecture',
+              'Real Dataset Identified',
             ].map(task => (
               <li key={task} className="flex items-start">
                 <CheckCircle2 className="w-4 h-4 text-[#16A34A] mr-3 shrink-0 mt-0.5" />
@@ -32,14 +31,12 @@ export function ProjectProgress() {
         </div>
 
         <div>
-          <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-4">Next Phase</div>
+          <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-4">Pending</div>
           <ul className="space-y-3">
             {[
-              'Dataset preparation',
-              'Feature engineering',
-              'Random Forest training',
-              'Physical bridge model',
-              'ESP32 + MPU6050 integration'
+              'ML Training',
+              'ESP32 Sensor Integration',
+              'Physical Bridge Model'
             ].map(task => (
               <li key={task} className="flex items-start">
                 <Circle className="w-4 h-4 text-[#64748B] mr-3 shrink-0 mt-0.5" />

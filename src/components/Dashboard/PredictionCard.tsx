@@ -2,66 +2,53 @@
 
 import { useSimulation } from '@/context/SimulationContext';
 import clsx from 'clsx';
+import { BrainCircuit } from 'lucide-react';
 
 export function PredictionCard() {
   const { health, mode } = useSimulation();
 
   if (!health) return null;
 
-  const getConditionColor = (condition: string) => {
-    switch (condition) {
-      case 'HEALTHY': return 'text-[#16A34A]';
-      case 'MINOR DAMAGE': return 'text-[#F59E0B]';
-      case 'MODERATE DAMAGE': return 'text-[#f97316]';
-      case 'SEVERE DAMAGE': return 'text-[#DC2626]';
-      default: return 'text-[#64748B]';
-    }
-  };
-
   return (
     <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm flex flex-col h-full">
-      <div className="mb-6">
+      <div className="mb-6 flex items-center space-x-2">
+        <BrainCircuit className="w-5 h-5 text-[#2563EB]" />
         <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">
-          AI Condition Prediction
+          AI Damage Detection
         </h3>
       </div>
 
-      <div className="mb-6">
-        <div className="flex justify-between items-start mb-1">
-          <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Prediction</div>
-          <div className="text-[9px] font-bold uppercase tracking-widest bg-[#eff6ff] text-[#2563EB] border border-[#bfdbfe] px-2 py-0.5 rounded">
-            Data Source: {mode === 'SIMULATION' ? 'Simulation' : 'Manual Input'}
-          </div>
+      <div className="space-y-4 mb-6">
+        <div className="flex justify-between items-center border-b border-[#E2E8F0] pb-2">
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Model</span>
+          <span className="text-sm font-bold text-[#111827]">Random Forest Classifier</span>
         </div>
-        <div className={clsx("text-2xl font-black tracking-widest uppercase mb-1", getConditionColor(health.condition))}>
-          {health.condition}
+        <div className="flex justify-between items-center border-b border-[#E2E8F0] pb-2">
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Dataset</span>
+          <span className="text-sm font-bold text-[#111827]">Vänersborg Bridge SHM</span>
         </div>
-        <div className="text-xs font-bold text-[#64748B] tracking-wide">
-          Confidence: <span className="text-[#111827]">{Math.max(85, 100 - health.anomalyProbability/2).toFixed(1)}%</span>
+        <div className="flex justify-between items-center border-b border-[#E2E8F0] pb-2">
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Task</span>
+          <span className="text-sm font-bold text-[#111827]">Normal vs Abnormal Behaviour</span>
+        </div>
+        <div className="flex justify-between items-center pt-2">
+          <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Current Status</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest bg-[#fffbeb] text-[#F59E0B] border border-[#fde68a] px-2 py-1 rounded">
+            ● NOT TRAINED
+          </span>
         </div>
       </div>
 
-      <div className="mb-6">
-        <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-3">Features Analyzed</div>
-        <ul className="text-xs font-medium text-[#111827] space-y-2">
-          <li>✓ RMS Acceleration</li>
-          <li>✓ Peak Acceleration</li>
-          <li>✓ Standard Deviation</li>
-          <li>✓ Dominant Frequency</li>
-          <li>✓ Tilt</li>
-          <li>✓ Temperature</li>
-        </ul>
+      <div className="bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg p-4 mb-4 text-center">
+        <p className="text-xs font-medium text-[#64748B]">
+          Real model metrics will appear here after training and evaluation on the real SHM dataset.
+        </p>
       </div>
 
-      <div className="mt-auto pt-4 border-t border-[#E2E8F0] bg-[#F5F7FA] p-3 rounded-lg">
-        <div className="mb-2">
-          <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest block mb-1">Current Engine:</span>
-          <span className="text-xs font-bold text-[#111827]">Prototype Prediction Engine</span>
-        </div>
-        <div>
-          <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest block mb-1">Planned Model:</span>
-          <span className="text-xs font-bold text-[#2563EB]">Random Forest Classifier</span>
-        </div>
+      <div className="mt-auto border-t border-[#E2E8F0] pt-4">
+        <p className="text-[10px] text-[#64748B] leading-relaxed italic">
+          <strong>Research Note:</strong> BridgeGuard AI currently focuses on detecting abnormal structural behaviour from SHM data. Detection of abnormal behaviour should not be interpreted as prediction of bridge collapse.
+        </p>
       </div>
     </div>
   );
