@@ -1,30 +1,42 @@
 "use client";
 
-import { Database, ArrowRight } from "lucide-react";
+import { Database, ArrowRight, ImageOff } from "lucide-react";
+import { useState } from "react";
 
 export function DatasetCaseStudy() {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <div className="bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-sm flex flex-col">
       <div className="flex flex-col lg:flex-row">
         
         {/* Left: Illustrative Image */}
-        <div className="lg:w-1/3 relative bg-[#111827] min-h-[250px] lg:min-h-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img 
-            src="https://images.unsplash.com/photo-1544253303-3d07e2a969db?auto=format&fit=crop&q=80&w=800" 
-            alt="Illustrative railway bridge" 
-            className="absolute inset-0 w-full h-full object-cover opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/90 to-transparent"></div>
-          <div className="absolute bottom-4 left-4 right-4">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-white/90 bg-black/60 px-2 py-1 rounded backdrop-blur-sm border border-white/10">
-              Illustrative bridge image — not the Vänersborg Bridge
-            </span>
+        <div className="lg:w-1/2 p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-[#E2E8F0] flex flex-col items-center justify-center">
+          <div className="w-full relative rounded-xl overflow-hidden bg-[#F5F7FA] border border-[#E2E8F0]" style={{ aspectRatio: '16/9' }}>
+            {!imageError ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img 
+                src="/images/vanersborg-bridge.jpg" 
+                alt="Vänersborg Bridge illustrative imagery" 
+                className="absolute inset-0 w-full h-full object-cover"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-[#64748B]">
+                <ImageOff className="w-12 h-12 mb-3 text-[#CBD5E1]" />
+                <span className="text-xs font-bold uppercase tracking-widest">Bridge Image</span>
+                <span className="text-[10px] font-medium">Image unavailable</span>
+                <span className="text-[10px] font-medium">Vänersborg SHM Dataset</span>
+              </div>
+            )}
           </div>
+          <p className="text-[10px] font-medium text-[#64748B] mt-4 text-center px-4">
+            Illustrative bridge imagery — see dataset source for the monitored SHM structure.
+          </p>
         </div>
 
         {/* Right: Dataset Info */}
-        <div className="lg:w-2/3 p-6 sm:p-8">
+        <div className="lg:w-1/2 p-6 sm:p-8 flex flex-col justify-center">
           <div className="flex items-center space-x-2 mb-2">
             <Database className="w-5 h-5 text-[#2563EB]" />
             <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">REAL-WORLD DATASET</h3>
@@ -33,35 +45,32 @@ export function DatasetCaseStudy() {
           <h4 className="text-2xl font-black text-[#111827] mb-1">Vänersborg Bridge SHM Dataset</h4>
           <p className="text-sm font-bold text-[#64748B] mb-8 uppercase tracking-widest">Sweden</p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-8">
-            <div className="flex items-start text-sm font-medium text-[#111827]">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 mr-3 shrink-0"></div>
-              64 monitored events
-            </div>
-            <div className="flex items-start text-sm font-medium text-[#111827]">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mt-1.5 mr-3 shrink-0"></div>
-              Real sensor measurements
-            </div>
-            <div className="flex items-start text-sm font-medium text-[#111827]">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#DC2626] mt-1.5 mr-3 shrink-0"></div>
-              Verified fracture event
+          <ul className="space-y-3 mb-8 text-sm font-medium text-[#111827]">
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>64 monitored events</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>Real sensor measurements</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>Acceleration / vibration</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>Strain</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>Inclination</li>
+            <li className="flex items-center"><span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-3 shrink-0"></span>Environmental data</li>
+            <li className="flex items-center text-[#DC2626] font-bold"><span className="w-1.5 h-1.5 rounded-full bg-[#DC2626] mr-3 shrink-0"></span>Verified structural fracture</li>
+          </ul>
+
+          <div className="pt-6 border-t border-[#E2E8F0]">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4">
+              <div>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest block mb-1">Dataset: Zenodo</span>
+                <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest block">DOI: 10.5281/zenodo.8300495</span>
+              </div>
+              <a 
+                href="https://zenodo.org/records/8300495" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-lg font-bold text-sm transition-colors shadow-sm uppercase tracking-widest shrink-0"
+              >
+                VIEW DATASET
+              </a>
             </div>
           </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-6 border-t border-[#E2E8F0]">
-            <div className="mb-4 sm:mb-0">
-              <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest block">DOI: 10.5281/zenodo.8300495</span>
-            </div>
-            <a 
-              href="https://zenodo.org/records/8300495" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-2.5 bg-[#2563EB] hover:bg-[#1D4ED8] text-white rounded-lg font-bold text-sm transition-colors shadow-sm uppercase tracking-widest"
-            >
-              VIEW DATASET
-            </a>
-          </div>
-
         </div>
       </div>
 
@@ -104,10 +113,6 @@ export function DatasetCaseStudy() {
             </div>
           </div>
         </div>
-        
-        <p className="text-[11px] text-[#64748B] leading-relaxed mt-6 font-medium bg-white p-4 rounded-lg border border-[#E2E8F0]">
-          Simulation demonstrates the interface. Real SHM data supports development and evaluation of the machine-learning pipeline. Future ESP32 sensors will provide live project-specific measurements.
-        </p>
       </div>
     </div>
   );

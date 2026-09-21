@@ -2,6 +2,7 @@
 
 import { useSimulation } from '@/context/SimulationContext';
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import clsx from 'clsx';
 import { Info, X } from 'lucide-react';
 
@@ -125,9 +126,9 @@ export function HeroStatus() {
         </div>
       </div>
 
-      {/* Proper Centered Modal */}
-      {showCalculation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Proper Centered Modal via Portal */}
+      {showCalculation && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
           {/* Darkened Backdrop */}
           <div 
             className="absolute inset-0 bg-[#000000]/60 backdrop-blur-sm"
@@ -219,7 +220,8 @@ export function HeroStatus() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
