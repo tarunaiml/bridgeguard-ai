@@ -20,8 +20,14 @@ export interface SensorData {
 export interface BridgeHealth {
   score: number; // 0-100
   condition: ConditionClass;
-  anomalyProbability: number; // 0-100
+  anomalyProbability: number;
   recommendation: string;
+  breakdown?: {
+    vibrationScore: number;
+    tiltScore: number;
+    freqScore: number;
+    envScore: number;
+  };
 }
 
 export interface FeatureImportance {

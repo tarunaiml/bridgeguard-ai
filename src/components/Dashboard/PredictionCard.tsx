@@ -4,7 +4,7 @@ import { useSimulation } from '@/context/SimulationContext';
 import clsx from 'clsx';
 
 export function PredictionCard() {
-  const { health } = useSimulation();
+  const { health, mode } = useSimulation();
 
   if (!health) return null;
 
@@ -27,7 +27,12 @@ export function PredictionCard() {
       </div>
 
       <div className="mb-6">
-        <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-1">Prediction</div>
+        <div className="flex justify-between items-start mb-1">
+          <div className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">Prediction</div>
+          <div className="text-[9px] font-bold uppercase tracking-widest bg-[#eff6ff] text-[#2563EB] border border-[#bfdbfe] px-2 py-0.5 rounded">
+            Data Source: {mode === 'SIMULATION' ? 'Simulation' : 'Manual Input'}
+          </div>
+        </div>
         <div className={clsx("text-2xl font-black tracking-widest uppercase mb-1", getConditionColor(health.condition))}>
           {health.condition}
         </div>

@@ -9,6 +9,7 @@ import { AnomalyMonitor } from "@/components/Dashboard/AnomalyMonitor";
 import { HealthTrend } from "@/components/Charts/HealthTrend";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { ProjectProgress } from "@/components/ProjectProgress";
+import { DatasetPanel } from "@/components/Dashboard/DatasetPanel";
 
 export default function Dashboard() {
   return (
@@ -32,6 +33,9 @@ export default function Dashboard() {
       {/* Bridge Condition Simulator */}
       <SimulationControls />
 
+      {/* Dataset Panel */}
+      <DatasetPanel />
+
       {/* AI Prediction + Anomaly + Recommendation */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <PredictionCard />
@@ -49,10 +53,8 @@ export default function Dashboard() {
 
       {/* Disclaimer */}
       <div className="mt-16 pt-8 border-t border-[#E2E8F0] text-center">
-        <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest">
-          BridgeGuard AI is an academic proof-of-concept.
-          <br/>
-          The system is not intended for real-world bridge safety certification or structural engineering decisions.
+        <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest leading-relaxed">
+          BridgeGuard AI is an academic proof-of-concept. The health score is a project-specific analytical metric and is not a standardized structural safety rating. Real-world bridge assessment requires validated engineering models, calibrated sensors, environmental compensation and qualified structural engineers.
         </p>
       </div>
 

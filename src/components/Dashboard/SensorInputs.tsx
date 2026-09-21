@@ -55,7 +55,12 @@ export function SensorInputs() {
   return (
     <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-sm mb-8">
       <div className="flex items-center justify-between p-4 border-b border-[#E2E8F0]">
-        <h3 className="font-bold text-[#111827]">SENSOR INPUTS</h3>
+        <div>
+          <h3 className="font-bold text-[#111827]">SENSOR INPUTS</h3>
+          {mode === 'MANUAL INPUT' && (
+            <p className="text-[10px] text-[#64748B] font-bold tracking-widest uppercase mt-0.5">Manual / Prototype Input</p>
+          )}
+        </div>
         <div className="flex bg-[#F5F7FA] border border-[#E2E8F0] rounded-lg p-1">
           <button
             onClick={() => setMode('SIMULATION')}

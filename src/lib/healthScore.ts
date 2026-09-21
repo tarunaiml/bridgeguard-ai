@@ -3,41 +3,50 @@ import { BridgeHealth, ConditionClass, SensorData } from '../types/bridge';
 export const calculateHealthScore = (data: SensorData): BridgeHealth => {
   // This prototype scoring layer is temporary and will be replaced/validated 
   // with the trained Random Forest model after hardware data collection.
+  // Prototype weighting: Vibration 40%, Tilt 25%, Frequency 20%, Environment 15%
 
-  // 1. Vibration condition (40%)
-  // Healthy RMS is around 0.4. Severe is > 2.5
-  let vibrationScore = 100 - ((data.rms - 0.3) / 2.5) * 100;
+  // 1. Vibration Score (0-100)
+  // Higher RMS/Peak means lower score
+  const vibrationFactor = Math.min(100, (data.rms * 50) + (data.peakAccel * 20));
+  let vibrationScore = 100 - vibrationFactor;
   vibrationScore = Math.max(0, Math.min(100, vibrationScore));
 
-  // 2. Tilt condition (25%)
-  // Healthy tilt is < 1.0. Severe > 5.0
+  // 2. Tilt Score (0-100)
   const maxTilt = Math.max(Math.abs(data.tiltX), Math.abs(data.tiltY));
-  let tiltScore = 100 - (maxTilt / 6.0) * 100;
+  const tiltFactor = Math.min(100, maxTilt * 25);
+  let tiltScore = 100 - tiltFactor;
   tiltScore = Math.max(0, Math.min(100, tiltScore));
 
-  // 3. Environmental condition (15%)
-  // Assume 25-35C is optimal.
-  const tempDeviation = Math.abs(data.temperature - 30);
-  let envScore = 100 - (tempDeviation / 15) * 100;
-  envScore = Math.max(0, Math.min(100, envScore));
+  // 3. Frequency Score (0-100)
+  // Assume healthy dominant frequency is around 15 Hz
+  const freqDeviation = Math.abs(15 - data.dominantFreq);
+  const freqFactor = Math.min(100, freqDeviation * 10);
+  let freqScore = 100 - freqFactor;
+  freqScore = Math.max(0, Math.min(100, freqScore));
 
-  // 4. Anomaly condition (20%)
-  // Simple heuristic based on stdDev, peakAccel, and stress
-  const anomalyFactor = ((data.stdDev * 1.5 + data.peakAccel) / 5.0) + (data.stress / 200);
-  let anomalyProbability = Math.max(5, Math.min(95, anomalyFactor * 100));
-  let anomalyScore = 100 - anomalyProbability;
+  // 4. Environment Score (0-100)
+  // Assume healthy temp is 25C, healthy humidity is 60%
+  const tempDeviation = Math.abs(25 - data.temperature);
+  const humDeviation = Math.abs(60 - data.humidity);
+  const envFactor = Math.min(100, (tempDeviation * 2) + (humDeviation * 0.5));
+  let envScore = 100 - envFactor;
+  envScore = Math.max(0, Math.min(100, envScore));
 
   const finalScore = Math.round(
     vibrationScore * 0.40 +
     tiltScore * 0.25 +
-    envScore * 0.15 +
-    anomalyScore * 0.20
+    freqScore * 0.20 +
+    envScore * 0.15
   );
 
   const clampedScore = Math.max(0, Math.min(100, finalScore));
 
+  // We still calculate anomaly probability for UI display
+  const anomalyFactor = ((data.stdDev * 1.5 + data.peakAccel) / 5.0) + (data.stress / 200);
+  let anomalyProbability = Math.round(Math.max(5, Math.min(95, anomalyFactor * 100)));
+
   let condition: ConditionClass = 'HEALTHY';
-  let recommendation = 'Continue routine monitoring. No immediate inspection indicated by the prototype.';
+  let recommendation = 'Prototype Recommendation: Continue routine monitoring. No immediate inspection indicated by the prototype.';
 
   if (clampedScore <= 30) {
     condition = 'SEVERE DAMAGE';
@@ -61,5 +70,11 @@ export const calculateHealthScore = (data: SensorData): BridgeHealth => {
     condition,
     anomalyProbability: Math.round(anomalyProbability),
     recommendation,
+    breakdown: {
+      vibrationScore: Math.round(vibrationScore),
+      tiltScore: Math.round(tiltScore),
+      freqScore: Math.round(freqScore),
+      envScore: Math.round(envScore)
+    }
   };
 };
