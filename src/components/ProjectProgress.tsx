@@ -2,7 +2,7 @@ import { CheckCircle2, Circle } from 'lucide-react';
 
 export function ProjectProgress() {
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm mb-8">
+    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">Project Progress</h3>
         <div className="text-xl font-black text-[#2563EB]">20%</div>

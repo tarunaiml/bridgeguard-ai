@@ -8,7 +8,7 @@ export function VibrationChart() {
   const { history, mode } = useSimulation();
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 h-[350px] flex flex-col shadow-sm mb-8">
+    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 h-[350px] flex flex-col shadow-sm">
       <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">Live Vibration Response</h3>

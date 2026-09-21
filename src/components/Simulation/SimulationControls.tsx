@@ -34,7 +34,7 @@ export function SimulationControls() {
   };
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm mb-8">
+    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm">
       <div className="mb-6">
         <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">Bridge Condition Simulator</h3>
       </div>

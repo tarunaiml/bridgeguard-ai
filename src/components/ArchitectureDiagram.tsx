@@ -12,7 +12,7 @@ export function ArchitectureDiagram() {
   ];
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl p-8 shadow-sm mb-8">
+    <div className="bg-white border border-[#E2E8F0] rounded-xl p-8 shadow-sm">
       <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest mb-2 text-center">System Architecture</h3>
       <p className="text-center text-[10px] font-bold text-[#64748B] tracking-widest uppercase mb-8">PLANNED HARDWARE PIPELINE</p>
       

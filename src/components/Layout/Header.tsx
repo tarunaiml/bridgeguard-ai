@@ -2,6 +2,7 @@
 
 import { Activity, Database } from 'lucide-react';
 import { useSimulation } from '@/context/SimulationContext';
+import clsx from 'clsx';
 
 export function Header() {
   const { mode } = useSimulation();
@@ -23,11 +24,19 @@ export function Header() {
 
         {/* Right: Badges */}
         <div className="flex items-center space-x-4">
-          <div className="flex flex-col items-end">
-            <div className="flex items-center space-x-1.5 bg-[#F5F7FA] border border-[#E2E8F0] px-3 py-1.5 rounded-lg shadow-sm">
-              <Database className="w-3 h-3 text-[#64748B]" />
-              <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest">DATA SOURCE:</span>
-              <span className="text-[9px] font-bold text-[#2563EB] uppercase tracking-widest">{mode}</span>
+          <div className="group relative flex flex-col items-end">
+            <div className="flex items-center space-x-2 bg-white border border-[#E2E8F0] px-3 py-1.5 rounded-full shadow-sm cursor-help hover:bg-[#F5F7FA] transition-colors">
+              <Database className="w-3.5 h-3.5 text-[#64748B]" />
+              <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-widest">DATA SOURCE</span>
+              <span className="flex items-center text-[10px] font-black text-[#2563EB] uppercase tracking-widest">
+                <span className="w-2 h-2 rounded-full bg-[#2563EB] mr-1.5"></span>
+                {mode}
+              </span>
+            </div>
+            
+            {/* Tooltip */}
+            <div className="absolute top-full right-0 mt-2 w-48 bg-[#111827] text-white text-[10px] font-medium p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 text-center leading-relaxed">
+              Current dashboard values are {mode === 'SIMULATION' ? 'simulated' : 'manually inputted'} for demonstration.
             </div>
           </div>
         </div>
