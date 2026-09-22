@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const res = await fetch('http://127.0.0.1:5000/api/model-info', {
+    const FLASK_URL = process.env.FLASK_API_URL || 'http://127.0.0.1:5000';
+    const res = await fetch(`${FLASK_URL}/api/model-info`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });

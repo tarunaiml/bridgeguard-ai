@@ -5,7 +5,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     
     // Call the Python ML backend
-    const response = await fetch('http://127.0.0.1:5000/api/explain', {
+    const FLASK_URL = process.env.FLASK_API_URL || 'http://127.0.0.1:5000';
+    const response = await fetch(`${FLASK_URL}/api/explain`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
