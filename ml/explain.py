@@ -27,11 +27,15 @@ def get_or_create_explainer(model, explainer_path="ml/models/shap_explainer.pkl"
     if model_name in tree_models:
         return shap.TreeExplainer(model)
     elif model_name in linear_models:
-        # LinearExplainer requires background data or masker, using Independent masker if available
-        return shap.LinearExplainer(model, background_data) if background_data is not None else shap.Explainer(model)
+        import numpy as np
+        # Since features are standard-scaled, mean is 0. We can use a zero array as background.
+        dummy_background = np.zeros((1, model.n_features_in_ if hasattr(model, 'n_features_in_') else 24))
+        return shap.LinearExplainer(model, dummy_background)
     else:
-        # Fallback to general Explainer (KernelExplainer or similar)
-        return shap.Explainer(model)
+        # Fallback to general Explainer with dummy background
+        import numpy as np
+        dummy_background = np.zeros((1, model.n_features_in_ if hasattr(model, 'n_features_in_') else 24))
+        return shap.Explainer(model.predict, dummy_background)
 
 def generate_local_explanation(features, feature_names):
     """
@@ -65,12 +69,15 @@ def generate_local_explanation(features, feature_names):
         }
         
     try:
+        import numpy as np
+        features_arr = np.array(features)
+        
         # Generate model prediction
-        prediction = int(model.predict(features)[0])
-        probability = float(model.predict_proba(features)[0][1]) if hasattr(model, "predict_proba") else None
+        prediction = int(model.predict(features_arr)[0])
+        probability = float(model.predict_proba(features_arr)[0][1]) if hasattr(model, "predict_proba") else None
         
         # Calculate SHAP values
-        shap_values = explainer.shap_values(features)
+        shap_values = explainer.shap_values(features_arr)
         
         # Format the output for the dashboard
         if isinstance(shap_values, list):

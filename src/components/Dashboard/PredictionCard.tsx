@@ -3,41 +3,23 @@
 import { useSimulation } from '@/context/SimulationContext';
 import { BrainCircuit } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { buildPonneriFeatureVector } from '@/lib/featureMapper';
 
 export function PredictionCard() {
-  const { currentInputs } = useSimulation();
+  const { currentData } = useSimulation();
   const [modelInfo, setModelInfo] = useState<any>(null);
   const [prediction, setPrediction] = useState<any>(null);
 
   useEffect(() => {
     async function fetchData() {
+      if (!currentData) return;
       try {
         const infoRes = await fetch('/api/model-info');
         const info = await infoRes.json();
         setModelInfo(info);
 
         if (info.trained) {
-           // We can also fetch the exact prediction from the explanation endpoint
-           let payloadFeatures: Record<string, number> = {};
-           payloadFeatures = {
-            "A1_Acc_1_Y_rms": currentInputs.rms_vibration / 1000,
-            "A1_Acc_1_Y_peak": currentInputs.peak_acceleration || (currentInputs.rms_vibration * 1.5) / 1000,
-            "A1_Acc_1_Y_var": Math.pow(currentInputs.rms_vibration / 1000, 2),
-            "A2_Acc_1_x_rms": currentInputs.tilt / 1000,
-            "A2_Acc_1_x_peak": (currentInputs.tilt * 1.5) / 1000,
-            "A2_Acc_1_x_var": Math.pow(currentInputs.tilt / 1000, 2),
-            "A3_Acc_1_Z_rms": currentInputs.rms_vibration / 2000,
-            "A3_Acc_1_Z_peak": (currentInputs.rms_vibration * 1.5) / 2000,
-            "A3_Acc_1_Z_var": Math.pow(currentInputs.rms_vibration / 2000, 2)
-           };
-           
-           if (info.features) {
-             info.features.forEach((f: string) => {
-               if (!(f in payloadFeatures)) {
-                 payloadFeatures[f] = info.baseline?.mean?.[f] || 0;
-               }
-             });
-           }
+           const payloadFeatures = buildPonneriFeatureVector(currentData, info.baseline, info.features);
 
            const predRes = await fetch('/api/explanation', {
              method: 'POST',
@@ -52,7 +34,7 @@ export function PredictionCard() {
       }
     }
     fetchData();
-  }, [currentInputs]);
+  }, [currentData]);
 
   const isTrained = modelInfo?.trained;
   const isAnomaly = prediction?.prediction === 1;
