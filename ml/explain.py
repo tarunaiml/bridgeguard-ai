@@ -2,14 +2,21 @@ import json
 import os
 import joblib
 
-def load_model(model_path="ml/models/selected_model.pkl"):
+def get_default_path(filename):
+    return os.path.join(os.path.dirname(__file__), "models", filename)
+
+def load_model(model_path=None):
     """Load the trained ML model."""
+    if model_path is None:
+        model_path = get_default_path("selected_model.pkl")
     if os.path.exists(model_path):
         return joblib.load(model_path)
     return None
 
-def get_or_create_explainer(model, explainer_path="ml/models/shap_explainer.pkl", background_data=None):
+def get_or_create_explainer(model, explainer_path=None, background_data=None):
     """Load pre-fitted explainer or create one dynamically based on the model type."""
+    if explainer_path is None:
+        explainer_path = get_default_path("shap_explainer.pkl")
     if os.path.exists(explainer_path):
         return joblib.load(explainer_path)
         
@@ -118,7 +125,7 @@ def generate_global_importance():
     """
     Load pre-calculated global SHAP feature importance from model training.
     """
-    metrics_path = "ml/model_metrics.json"
+    metrics_path = get_default_path("model_metadata.json")
     if os.path.exists(metrics_path):
         with open(metrics_path, 'r') as f:
             metrics = json.load(f)

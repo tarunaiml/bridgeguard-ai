@@ -3,7 +3,6 @@ import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from explain import generate_local_explanation, generate_global_importance
-from features import extract_health_relative_features
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
