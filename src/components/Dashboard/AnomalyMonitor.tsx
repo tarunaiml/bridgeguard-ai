@@ -18,12 +18,13 @@ export function AnomalyMonitor() {
   return (
     <div className="flex flex-col space-y-6 h-full">
       <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm">
-        <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest mb-6">
-          Anomaly Probability
+        <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest mb-6 flex justify-between items-center">
+          <span>Prototype Anomaly Indicator</span>
+          <span className="text-[9px] bg-[#F5F7FA] text-[#64748B] px-2 py-1 rounded border border-[#E2E8F0]">SIMULATION MODE</span>
         </h3>
         
         <div className="flex justify-between items-end mb-2">
-          <div className="text-3xl font-black text-[#111827]">{health.anomalyProbability}%</div>
+          <div className="text-3xl font-black text-[#111827]">{health.anomalyProbability}</div>
           <div className={clsx("text-sm font-bold uppercase tracking-widest", statusColor)}>{statusText}</div>
         </div>
 

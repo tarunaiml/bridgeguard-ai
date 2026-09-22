@@ -6,6 +6,7 @@ import { VibrationChart } from "@/components/Charts/VibrationChart";
 import { SimulationControls } from "@/components/Simulation/SimulationControls";
 import { PredictionCard } from "@/components/Dashboard/PredictionCard";
 import { AnomalyMonitor } from "@/components/Dashboard/AnomalyMonitor";
+import { ShapExplanation } from "@/components/Dashboard/ShapExplanation";
 import { HealthTrend } from "@/components/Charts/HealthTrend";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { ProjectProgress } from "@/components/ProjectProgress";
@@ -36,6 +37,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <PredictionCard />
         <AnomalyMonitor />
+        <ShapExplanation />
       </div>
 
       <HealthTrend />
@@ -50,7 +52,7 @@ export default function Dashboard() {
       <div className="mt-12 pt-8 border-t border-[#E2E8F0] text-center">
         <h5 className="text-[10px] font-black text-[#111827] uppercase tracking-widest mb-2">ACADEMIC PROTOTYPE</h5>
         <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest leading-relaxed max-w-3xl mx-auto">
-          BridgeGuard AI is an academic proof-of-concept for structural health monitoring. Prototype scores and simulated measurements are not certified engineering safety assessments.
+          BridgeGuard ML is an academic proof-of-concept and is not a certified structural safety system. SHAP explains the contribution of model features to a prediction. It does not establish structural causality or certify bridge safety.
         </p>
       </div>
 

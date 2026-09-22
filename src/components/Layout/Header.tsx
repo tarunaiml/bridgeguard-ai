@@ -17,8 +17,8 @@ export function Header() {
             <Activity className="w-5 h-5 text-[#2563EB]" />
           </div>
           <div>
-            <h1 className="text-[#111827] font-black tracking-widest text-sm uppercase">BridgeGuard AI</h1>
-            <p className="text-[10px] text-[#64748B] uppercase tracking-widest font-bold hidden sm:block">AI-Powered Structural Health Monitoring</p>
+            <h1 className="text-[#111827] font-black tracking-widest text-sm uppercase">BridgeGuard ML</h1>
+            <p className="text-[10px] text-[#64748B] uppercase tracking-widest font-bold hidden sm:block">Explainable Machine Learning for Bridge Structural Health Monitoring</p>
           </div>
         </div>
 

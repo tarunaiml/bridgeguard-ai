@@ -79,7 +79,7 @@ export function DatasetCaseStudy() {
         <div className="text-sm text-[#64748B] leading-relaxed mb-8 space-y-4 max-w-3xl">
           <p>The Vänersborg Bridge dataset contains structural health monitoring measurements collected from a monitored railway bridge in Sweden.</p>
           <p>The measurements include acceleration/vibration, strain, inclination and environmental information across bridge-opening events, including data surrounding a verified structural fracture.</p>
-          <p>BridgeGuard AI uses this dataset as a real-world reference for developing and evaluating abnormal structural-behaviour detection.</p>
+          <p>BridgeGuard ML uses this dataset as a real-world reference for developing and evaluating abnormal structural-behaviour detection.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs font-bold text-[#111827] tracking-widest uppercase mb-10 bg-white p-4 rounded-xl border border-[#E2E8F0] shadow-sm overflow-x-auto">
