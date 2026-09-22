@@ -7,7 +7,7 @@ import { SimulationProvider } from "@/context/SimulationContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "BridgeGuard AI | Prototype Dashboard",
+  title: "BridgeGuard ML | Prototype Dashboard",
   description: "AI-Powered Structural Health Monitoring for Bridge Prototypes",
 };
 

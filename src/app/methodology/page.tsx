@@ -14,7 +14,7 @@ export default function MethodologyPage() {
             Structural Health Monitoring (SHM)
           </h3>
           <p className="text-sm">
-            BridgeGuard AI implements a data-driven Structural Health Monitoring (SHM) methodology. Rather than relying solely on periodic manual inspections, this system utilizes continuous IoT sensor data to estimate structural integrity. The prototype simulates conditions to validate the ML pipeline before hardware deployment.
+            BridgeGuard ML implements a data-driven Structural Health Monitoring (SHM) methodology. Rather than relying solely on periodic manual inspections, this system utilizes continuous IoT sensor data to estimate structural integrity. The prototype simulates conditions to validate the ML pipeline before hardware deployment.
           </p>
         </section>
 

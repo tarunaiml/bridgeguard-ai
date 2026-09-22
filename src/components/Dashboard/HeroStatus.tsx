@@ -206,7 +206,7 @@ export function HeroStatus() {
               {/* Disclaimer */}
               <div className="bg-[#fffbeb] border border-[#fde68a] p-5 rounded-xl text-[11px] sm:text-xs text-[#d97706] font-medium leading-relaxed">
                 <span className="font-bold uppercase tracking-wider block mb-2 text-[#b45309]">IMPORTANT</span>
-                This weighting is defined for the BridgeGuard AI academic prototype and is not a standardized bridge engineering formula. This 0–100 score is a project-specific prototype indicator. It is not a certified engineering safety rating and should not be interpreted as a real bridge safety certification.
+                This weighting is defined for the BridgeGuard ML academic prototype and is not a standardized bridge engineering formula. This 0–100 score is a project-specific prototype indicator. It is not a certified engineering safety rating and should not be interpreted as a real bridge safety certification.
               </div>
             </div>
             

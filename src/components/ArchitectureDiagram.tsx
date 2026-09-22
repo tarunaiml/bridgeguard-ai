@@ -7,7 +7,7 @@ export function ArchitectureDiagram() {
     'Machine Learning',
     'Random Forest',
     'Normal / Abnormal Detection',
-    'BridgeGuard AI Dashboard',
+    'BridgeGuard ML Dashboard',
     'Alert / Maintenance Recommendation'
   ];
 

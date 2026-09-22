@@ -8,6 +8,13 @@ from features import extract_health_relative_features
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+@app.route('/', methods=['GET'])
+def root():
+    return jsonify({
+        "status": "ok",
+        "service": "BridgeGuard ML API Root"
+    })
+
 @app.route('/api/predict', methods=['POST'])
 def predict():
     # In the future, this will use the trained model

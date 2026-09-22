@@ -5,7 +5,7 @@ export default function ProgressPage() {
     <div className="space-y-8 pb-12 max-w-4xl mx-auto">
       <div>
         <h2 className="text-3xl font-black text-white tracking-tighter mb-2">PROJECT STATUS</h2>
-        <p className="text-sm font-bold text-slate-400 tracking-widest uppercase mt-1">BridgeGuard AI Development Roadmap.</p>
+        <p className="text-sm font-bold text-slate-400 tracking-widest uppercase mt-1">BridgeGuard ML Development Roadmap.</p>
       </div>
 
       <ProjectProgress />
