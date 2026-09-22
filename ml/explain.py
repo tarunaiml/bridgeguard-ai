@@ -8,11 +8,30 @@ def load_model(model_path="ml/models/selected_model.pkl"):
         return joblib.load(model_path)
     return None
 
-def load_explainer(explainer_path="ml/models/shap_explainer.pkl"):
-    """Load the pre-fitted SHAP explainer."""
+def get_or_create_explainer(model, explainer_path="ml/models/shap_explainer.pkl", background_data=None):
+    """Load pre-fitted explainer or create one dynamically based on the model type."""
     if os.path.exists(explainer_path):
         return joblib.load(explainer_path)
-    return None
+        
+    # Dynamically create appropriate explainer based on model type
+    model_name = type(model).__name__
+    
+    try:
+        import shap
+    except ImportError:
+        return None
+        
+    tree_models = ["RandomForestClassifier", "DecisionTreeClassifier", "XGBClassifier", "GradientBoostingClassifier"]
+    linear_models = ["LogisticRegression", "LinearSVC"]
+    
+    if model_name in tree_models:
+        return shap.TreeExplainer(model)
+    elif model_name in linear_models:
+        # LinearExplainer requires background data or masker, using Independent masker if available
+        return shap.LinearExplainer(model, background_data) if background_data is not None else shap.Explainer(model)
+    else:
+        # Fallback to general Explainer (KernelExplainer or similar)
+        return shap.Explainer(model)
 
 def generate_local_explanation(features, feature_names):
     """
@@ -21,12 +40,19 @@ def generate_local_explanation(features, feature_names):
     feature_names: list of feature names
     """
     model = load_model()
-    explainer = load_explainer()
     
-    if model is None or explainer is None:
+    if model is None:
         return {
             "status": "NOT_TRAINED",
             "message": "SHAP READY — WAITING FOR TRAINED MODEL"
+        }
+        
+    explainer = get_or_create_explainer(model)
+    
+    if explainer is None:
+        return {
+            "status": "ERROR",
+            "message": "Could not create SHAP explainer for the selected model."
         }
     
     # IMPORT SHAP ONLY WHEN NEEDED TO PREVENT DEPENDENCY ERRORS IF NOT INSTALLED
@@ -39,12 +65,14 @@ def generate_local_explanation(features, feature_names):
         }
         
     try:
+        # Generate model prediction
+        prediction = int(model.predict(features)[0])
+        probability = float(model.predict_proba(features)[0][1]) if hasattr(model, "predict_proba") else None
+        
         # Calculate SHAP values
         shap_values = explainer.shap_values(features)
         
         # Format the output for the dashboard
-        # This assumes a structure compatible with TreeExplainer or LinearExplainer
-        
         if isinstance(shap_values, list):
             # For multi-class or some tree explainers
             shap_vals = shap_values[1][0] if len(shap_values) > 1 else shap_values[0][0]
@@ -68,6 +96,8 @@ def generate_local_explanation(features, feature_names):
         
         return {
             "status": "EXPLAINABILITY_READY",
+            "prediction": prediction,
+            "probability": probability,
             "base_value": float(base_value),
             "contributions": contributions
         }
