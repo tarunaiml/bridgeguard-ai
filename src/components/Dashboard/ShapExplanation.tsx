@@ -37,7 +37,13 @@ export function ShapExplanation() {
         if (info.trained && info.features) {
           payloadFeatures = buildPonneriFeatureVector(currentData, info.baseline, info.features);
         } else {
-          payloadFeatures = currentData;
+          const numericFeatures: Record<string, number> = {};
+          for (const [key, value] of Object.entries(currentData)) {
+            if (typeof value === 'number') {
+              numericFeatures[key] = value;
+            }
+          }
+          payloadFeatures = numericFeatures;
         }
 
         const res = await fetch('/api/explanation', {
