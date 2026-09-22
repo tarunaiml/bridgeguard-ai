@@ -460,7 +460,7 @@ for b in bullets:
     p.font.color.rgb = RGBColor(17, 24, 39)
 
 p2 = tf.add_paragraph()
-p2.text = "\nLIVE PROTOTYPE:\nhttps://bridgeguard-ai-alpha.vercel.app/"
+p2.text = "\nLIVE PROTOTYPE:\nhttps://bridgeguard-ml.vercel.app/"
 p2.font.bold = True
 p2.font.size = Pt(14)
 p2.font.color.rgb = RGBColor(37, 99, 235)
