@@ -1,0 +1,117 @@
+{
+  "dataset": "Ponneri Bridge - Local Train",
+  "task": "Operational State Detection (Train Passage)",
+  "selected_model": "Logistic Regression",
+  "feature_names": [
+    "A1_Acc_1_Y_rms",
+    "A1_Acc_1_Y_peak",
+    "A1_Acc_1_Y_var",
+    "A2_Acc_1_x_rms",
+    "A2_Acc_1_x_peak",
+    "A2_Acc_1_x_var",
+    "A3_Acc_1_Z_rms",
+    "A3_Acc_1_Z_peak",
+    "A3_Acc_1_Z_var",
+    "A4_Acc2_Y_rms",
+    "A4_Acc2_Y_peak",
+    "A4_Acc2_Y_var",
+    "B1_Acc_2_X_rms",
+    "B1_Acc_2_X_peak",
+    "B1_Acc_2_X_var",
+    "B2_Acc_2_Z_rms",
+    "B2_Acc_2_Z_peak",
+    "B2_Acc_2_Z_var",
+    "B3_Acc_3_Y_rms",
+    "B3_Acc_3_Y_peak",
+    "B3_Acc_3_Y_var",
+    "B4_Acc3_X_rms",
+    "B4_Acc3_X_peak",
+    "B4_Acc3_X_var"
+  ],
+  "baseline": {
+    "mean": {
+      "A1_Acc_1_Y_rms": 0.00024133892235870974,
+      "A1_Acc_1_Y_peak": 0.0008651286590888741,
+      "A1_Acc_1_Y_var": 4.699944413710317e-08,
+      "A2_Acc_1_x_rms": 0.0030989232605289022,
+      "A2_Acc_1_x_peak": 0.01176127971016935,
+      "A2_Acc_1_x_var": 1.3463398441581403e-05,
+      "A3_Acc_1_Z_rms": 0.0011227779460867982,
+      "A3_Acc_1_Z_peak": 0.002652837695287807,
+      "A3_Acc_1_Z_var": 2.3535788963677478e-07,
+      "A4_Acc2_Y_rms": 0.0006589338729742539,
+      "A4_Acc2_Y_peak": 0.0019709375919774175,
+      "A4_Acc2_Y_var": 3.5948027553937923e-07,
+      "B1_Acc_2_X_rms": 0.00044798867779730946,
+      "B1_Acc_2_X_peak": 0.002669529069126362,
+      "B1_Acc_2_X_var": 4.061663004670445e-07,
+      "B2_Acc_2_Z_rms": 0.003640195079864908,
+      "B2_Acc_2_Z_peak": 0.011838824909535191,
+      "B2_Acc_2_Z_var": 6.3240650723014765e-06,
+      "B3_Acc_3_Y_rms": 0.0003902098293559645,
+      "B3_Acc_3_Y_peak": 0.0014535199928407867,
+      "B3_Acc_3_Y_var": 1.8756224761149285e-07,
+      "B4_Acc3_X_rms": 0.00031575490233049267,
+      "B4_Acc3_X_peak": 0.0012162510843370996,
+      "B4_Acc3_X_var": 1.2873218170233792e-07
+    },
+    "std": {
+      "A1_Acc_1_Y_rms": 1.1192130390838633e-05,
+      "A1_Acc_1_Y_peak": 0.00012314152339181606,
+      "A1_Acc_1_Y_var": 3.4562929489001207e-09,
+      "A2_Acc_1_x_rms": 0.0020736846209690736,
+      "A2_Acc_1_x_peak": 0.009569257461882679,
+      "A2_Acc_1_x_var": 1.977634503107616e-05,
+      "A3_Acc_1_Z_rms": 0.00011146493456434003,
+      "A3_Acc_1_Z_peak": 0.0004371202576702501,
+      "A3_Acc_1_Z_var": 1.1802192715710333e-07,
+      "A4_Acc2_Y_rms": 8.669586429969053e-05,
+      "A4_Acc2_Y_peak": 0.0008251625262811424,
+      "A4_Acc2_Y_var": 1.0786479156060726e-07,
+      "B1_Acc_2_X_rms": 0.00047398304913355007,
+      "B1_Acc_2_X_peak": 0.005088953373066175,
+      "B1_Acc_2_X_var": 1.301426648367477e-06,
+      "B2_Acc_2_Z_rms": 0.0014704944453301303,
+      "B2_Acc_2_Z_peak": 0.01579795990751521,
+      "B2_Acc_2_Z_var": 1.903580777414656e-05,
+      "B3_Acc_3_Y_rms": 0.00019797006356960016,
+      "B3_Acc_3_Y_peak": 0.001099960378837313,
+      "B3_Acc_3_Y_var": 2.0098732572947384e-07,
+      "B4_Acc3_X_rms": 0.00018625542663224876,
+      "B4_Acc3_X_peak": 0.0011332624404807564,
+      "B4_Acc3_X_var": 1.515828289352101e-07
+    }
+  },
+  "metrics": {
+    "Accuracy": 1.0,
+    "Precision": 1.0,
+    "Recall": 1.0,
+    "F1": 1.0
+  },
+  "all_results": {
+    "Logistic Regression": {
+      "Accuracy": 1.0,
+      "Precision": 1.0,
+      "Recall": 1.0,
+      "F1": 1.0
+    },
+    "SVM": {
+      "Accuracy": 1.0,
+      "Precision": 1.0,
+      "Recall": 1.0,
+      "F1": 1.0
+    },
+    "Random Forest": {
+      "Accuracy": 1.0,
+      "Precision": 1.0,
+      "Recall": 1.0,
+      "F1": 1.0
+    },
+    "Isolation Forest": {
+      "Accuracy": 0.6190476190476191,
+      "Precision": 0.38461538461538464,
+      "Recall": 1.0,
+      "F1": 0.5555555555555556
+    }
+  }
+}

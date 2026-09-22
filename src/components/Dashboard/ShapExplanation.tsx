@@ -17,27 +17,88 @@ export function ShapExplanation() {
   const [shapData, setShapData] = useState<ShapData | null>(null);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [featureMismatch, setFeatureMismatch] = useState(false);
+  const [modelInfo, setModelInfo] = useState<any>(null);
 
   useEffect(() => {
     async function fetchExplanation() {
-      setLoading(true);
       try {
+        const infoRes = await fetch('/api/model-info');
+        const info = await infoRes.json();
+        setModelInfo(info);
+        
+        let payloadFeatures: Record<string, number> = {};
+        
+        if (info.trained && info.features) {
+          // Map prototype simulation inputs to real Ponneri dataset features
+          payloadFeatures = {
+            "A1_Acc_1_Y_rms": currentInputs.rms_vibration / 1000,
+            "A1_Acc_1_Y_peak": currentInputs.peak_acceleration || (currentInputs.rms_vibration * 1.5) / 1000,
+            "A1_Acc_1_Y_var": Math.pow(currentInputs.rms_vibration / 1000, 2),
+            "A2_Acc_1_x_rms": currentInputs.tilt / 1000,
+            "A2_Acc_1_x_peak": (currentInputs.tilt * 1.5) / 1000,
+            "A2_Acc_1_x_var": Math.pow(currentInputs.tilt / 1000, 2),
+            "A3_Acc_1_Z_rms": currentInputs.rms_vibration / 2000,
+            "A3_Acc_1_Z_peak": (currentInputs.rms_vibration * 1.5) / 2000,
+            "A3_Acc_1_Z_var": Math.pow(currentInputs.rms_vibration / 2000, 2)
+          };
+          
+          // Fill missing expected features with 0 (or baseline means)
+          info.features.forEach((f: string) => {
+            if (!(f in payloadFeatures)) {
+               payloadFeatures[f] = info.baseline?.mean?.[f] || 0;
+            }
+          });
+          
+          setFeatureMismatch(false);
+        } else {
+          payloadFeatures = currentInputs;
+        }
+
         const res = await fetch('/api/explanation', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ features: currentInputs })
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            features: payloadFeatures
+          }),
         });
         const data = await res.json();
         setShapData(data);
-      } catch (e) {
-        setShapData({ status: "NOT_TRAINED", message: "API Error" });
+      } catch (error) {
+        console.error("Failed to fetch SHAP explanation:", error);
       } finally {
         setLoading(false);
       }
     }
-    
+
     fetchExplanation();
   }, [currentInputs]);
+
+  if (loading) {
+    return <div className="animate-pulse bg-[#F5F7FA] h-48 rounded-xl border border-[#E2E8F0]"></div>;
+  }
+
+  if (featureMismatch) {
+    return (
+      <div className="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#E2E8F0]">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="bg-amber-100 p-2 rounded-lg">
+            <AlertCircle className="w-5 h-5 text-amber-600" />
+          </div>
+          <h3 className="text-sm font-black text-[#111827] uppercase tracking-widest">SHAP EXPLAINABILITY</h3>
+        </div>
+        <div className="bg-[#FFFBEB] border border-[#FDE68A] rounded-xl p-4 flex flex-col items-center justify-center text-center">
+          <span className="text-[#B45309] font-bold text-xs uppercase tracking-widest mb-2">SIMULATION MODE MISMATCH</span>
+          <p className="text-xs text-[#92400E] font-medium leading-relaxed">
+            Simulation input does not yet match trained model features.
+            The trained model expects {modelInfo?.features?.length} channels (e.g., {modelInfo?.features?.[0]}).
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const isModelTrained = shapData?.status === "EXPLAINABILITY_READY";
 

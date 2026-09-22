@@ -15,6 +15,20 @@ def root():
         "service": "BridgeGuard ML API Root"
     })
 
+@app.route('/api/model-info', methods=['GET'])
+def model_info():
+    metadata_path = os.path.join(os.path.dirname(__file__), "models", "model_metadata.json")
+    if os.path.exists(metadata_path):
+        with open(metadata_path, 'r') as f:
+            meta = json.load(f)
+        return jsonify({
+            "trained": True,
+            "model": meta.get("selected_model"),
+            "features": meta.get("feature_names"),
+            "baseline": meta.get("baseline")
+        })
+    return jsonify({"trained": False})
+
 @app.route('/api/predict', methods=['POST'])
 def predict():
     # In the future, this will use the trained model
@@ -42,35 +56,37 @@ def explain():
         
     current_sensor_data = data.get('features')
     
-    # Example Baseline (In a real scenario, this is fetched from a database or config for the specific bridge)
-    baseline = {
-        "rms_mean": 1.0, 
-        "rms_std": 0.5, 
-        "tilt_mean": 0.0,
-        "tilt_std": 1.0
-    }
-    
-    # Preprocessing: Convert to health-relative features
-    # Note: features.py handles this
-    try:
-        relative_features = extract_health_relative_features(current_sensor_data, baseline)
-    except Exception as e:
-        return jsonify({"status": "ERROR", "message": f"Feature extraction failed: {str(e)}"})
+    metadata_path = os.path.join(os.path.dirname(__file__), "models", "model_metadata.json")
+    if not os.path.exists(metadata_path):
+        return jsonify({"status": "NOT_TRAINED", "message": "SHAP READY — WAITING FOR TRAINED MODEL"})
         
-    # We must pass the exact ordered array of features the model expects
-    # In the prototype, we expect these names:
-    feature_names = ["normalized_rms_deviation", "tilt_deviation"]
+    with open(metadata_path, 'r') as f:
+        meta = json.load(f)
+        
+    baseline_mean = meta.get("baseline", {}).get("mean", {})
+    baseline_std = meta.get("baseline", {}).get("std", {})
+    feature_names = meta.get("feature_names", [])
+    
+    # Process features exactly like train.py
+    # If the UI sends raw sensor values, we extract them. 
+    # For now, let's assume the UI sends the exact feature dict.
     
     feature_vector = []
     for fn in feature_names:
-        feature_vector.append(relative_features.get(fn, 0.0))
+        # Check if UI sent the raw un-normalized feature
+        val = current_sensor_data.get(fn, 0.0)
+        # Normalize
+        mean_val = baseline_mean.get(fn, 0.0)
+        std_val = baseline_std.get(fn, 1e-6)
+        normalized_val = (val - mean_val) / std_val
+        feature_vector.append(normalized_val)
         
     features_array = [feature_vector]
     
     # Call the explainer
     explanation = generate_local_explanation(features_array, feature_names)
     
-    # Include the global importance as well for the dashboard
+    # Include the global importance as well for the dashboard if available
     global_imp = generate_global_importance()
     if global_imp.get("status") == "EXPLAINABILITY_READY":
         explanation["global_importance"] = global_imp.get("importance")
