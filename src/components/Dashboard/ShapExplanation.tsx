@@ -111,7 +111,7 @@ export function ShapExplanation() {
             <Brain className="w-5 h-5 text-indigo-600" />
           </div>
           <h3 className="text-sm font-black text-[#111827] uppercase tracking-widest">
-            WHY DID THE MODEL MAKE THIS PREDICTION?
+            WHY DID THE ML MODEL MAKE THIS PREDICTION?
           </h3>
         </div>
       </div>
@@ -121,9 +121,15 @@ export function ShapExplanation() {
          <span className="text-gray-500 uppercase tracking-wider">Confidence: <span className="text-gray-800 ml-1">{confidence}</span></span>
       </div>
 
-      <h4 className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-4">
-        SHAP FEATURE CONTRIBUTIONS
-      </h4>
+      <div className="mb-4">
+        <h4 className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest mb-1">
+          SHAP FEATURE CONTRIBUTIONS
+        </h4>
+        <p className="text-[9px] text-[#64748B] font-medium italic">
+          Positive contribution &rarr; pushes toward predicted anomaly class<br/>
+          Negative contribution &rarr; pushes away from predicted anomaly class
+        </p>
+      </div>
 
       <div className="space-y-4 mb-6">
         {sortedFeatures.map((item, idx) => {

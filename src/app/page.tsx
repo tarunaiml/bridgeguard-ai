@@ -1,16 +1,14 @@
 "use client";
 
-import { HeroStatus } from "@/components/Dashboard/HeroStatus";
 import { SensorInputs } from "@/components/Dashboard/SensorInputs";
 import { VibrationChart } from "@/components/Charts/VibrationChart";
 import { SimulationControls } from "@/components/Simulation/SimulationControls";
 import { PredictionCard } from "@/components/Dashboard/PredictionCard";
-import { AnomalyMonitor } from "@/components/Dashboard/AnomalyMonitor";
 import { ShapExplanation } from "@/components/Dashboard/ShapExplanation";
 import { HealthTrend } from "@/components/Charts/HealthTrend";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
-import { ProjectProgress } from "@/components/ProjectProgress";
 import { DatasetCaseStudy } from "@/components/Dashboard/DatasetCaseStudy";
+import { SystemStatus } from "@/components/Dashboard/SystemStatus";
 
 export default function Dashboard() {
   return (
@@ -18,14 +16,12 @@ export default function Dashboard() {
       
       {/* Title */}
       <div className="mb-2 text-center md:text-left">
-        <h2 className="text-3xl font-black text-[#111827] tracking-tighter mb-1">DASHBOARD</h2>
+        <h2 className="text-3xl font-black text-[#111827] tracking-tighter mb-1">BRIDGEGUARD ML</h2>
         <div className="inline-block bg-[#eff6ff] border border-[#bfdbfe] text-[#1D4ED8] text-[11px] font-medium px-4 py-2.5 rounded-lg leading-relaxed max-w-2xl text-left mt-3">
-          <strong className="uppercase tracking-widest block mb-1">Data Source Note</strong>
+          <strong className="uppercase tracking-widest block mb-1">Structural Health Monitoring using Machine Learning</strong>
           The current live dashboard uses simulated sensor values for demonstration until physical sensors and the real ML pipeline are connected. Do not interpret these as real bridge measurements.
         </div>
       </div>
-
-      <HeroStatus />
 
       <SensorInputs />
 
@@ -34,19 +30,18 @@ export default function Dashboard() {
         <SimulationControls />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         <PredictionCard />
-        <AnomalyMonitor />
         <ShapExplanation />
       </div>
 
       <HealthTrend />
       
       <DatasetCaseStudy />
+      
+      <SystemStatus />
 
       <ArchitectureDiagram />
-
-      <ProjectProgress />
 
       {/* Disclaimer */}
       <div className="mt-12 pt-8 border-t border-[#E2E8F0] text-center">

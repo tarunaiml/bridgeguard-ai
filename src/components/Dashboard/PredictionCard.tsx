@@ -42,12 +42,12 @@ export function PredictionCard() {
   return (
     <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm flex flex-col h-full">
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex items-center space-x-2">
-          <BrainCircuit className="w-5 h-5 text-[#2563EB]" />
-          <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">
-            AI PREDICTION
-          </h3>
-        </div>
+          <div className="flex items-center space-x-2">
+            <BrainCircuit className="w-5 h-5 text-[#2563EB]" />
+            <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">
+              ML PREDICTION
+            </h3>
+          </div>
         <span className={`flex items-center text-[10px] font-bold uppercase tracking-widest border px-2.5 py-1 rounded w-fit ${isTrained ? (isAnomaly ? 'bg-red-50 text-red-600 border-red-200' : 'bg-green-50 text-green-600 border-green-200') : 'bg-[#F5F7FA] text-[#64748B] border-[#E2E8F0]'}`}>
           <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${isTrained ? (isAnomaly ? 'bg-red-600' : 'bg-green-600') : 'bg-[#64748B]'}`}></span>
           {isTrained ? (isAnomaly ? 'TRAIN PASSAGE DETECTED' : 'AMBIENT NORMAL') : 'NOT TRAINED'}

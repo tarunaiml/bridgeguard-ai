@@ -1,14 +1,16 @@
 export function ArchitectureDiagram() {
   const steps = [
-    'PHYSICAL BRIDGE',
-    'ESP32 + MPU6050 + Environmental Sensors',
-    'Sensor Data',
-    'Feature Extraction',
-    'Machine Learning',
-    'Random Forest',
-    'Normal / Abnormal Detection',
-    'BridgeGuard ML Dashboard',
-    'Alert / Maintenance Recommendation'
+    'ESP32 + Sensors',
+    'Sensor measurements',
+    'Data acquisition / transmission',
+    'Preprocessing',
+    'Health-relative feature extraction',
+    'Normalization',
+    'ML model comparison',
+    'Selected ML model',
+    'Prediction',
+    'SHAP explainability',
+    'BridgeGuard ML dashboard'
   ];
 
   return (
