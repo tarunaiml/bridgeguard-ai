@@ -4,7 +4,6 @@ import { useSimulation } from '@/context/SimulationContext';
 import { ConditionClass } from '@/types/bridge';
 import clsx from 'clsx';
 import { generateSimulatedData } from '@/lib/simulation';
-import { calculateHealthScore } from '@/lib/healthScore';
 
 const conditions: { label: string; value: ConditionClass; color: string }[] = [
   { label: 'HEALTHY', value: 'HEALTHY', color: 'hover:bg-[#f0fdf4] text-[#16A34A] border-[#bbf7d0]' },
@@ -14,7 +13,7 @@ const conditions: { label: string; value: ConditionClass; color: string }[] = [
 ];
 
 export function SimulationControls() {
-  const { condition, setCondition, isRunning, setIsRunning, mode, setMode, updateManualData, calculateManualHealth, history, currentData } = useSimulation();
+  const { condition, setCondition, setIsRunning, mode, setMode, updateManualData, calculateManualHealth, currentData } = useSimulation();
 
   const handleConditionSelect = (c: ConditionClass) => {
     setCondition(c);
@@ -34,12 +33,13 @@ export function SimulationControls() {
   };
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <div className="mb-6">
-        <h3 className="text-[#111827] font-bold uppercase text-xs tracking-widest">Bridge Condition Simulator</h3>
+        <h3 className="text-sm font-semibold text-slate-950">Condition simulator</h3>
+        <p className="mt-1 text-xs leading-5 text-slate-500">Changes are applied to the prototype data generator. They are not real structural events.</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 mb-6">
         {conditions.map(c => {
           const isActive = condition === c.value;
           return (
@@ -47,10 +47,10 @@ export function SimulationControls() {
               key={c.value}
               onClick={() => handleConditionSelect(c.value)}
               className={clsx(
-                "p-4 rounded-xl border text-center transition-colors font-bold text-xs tracking-widest uppercase",
+                "min-h-20 rounded-xl border px-3 py-3 text-center text-[11px] font-semibold tracking-wide transition-colors",
                 isActive 
                   ? "bg-[#F5F7FA] border-[#2563EB] text-[#2563EB] shadow-sm"
-                  : "bg-white border-[#E2E8F0] text-[#64748B] hover:border-[#cbd5e1]"
+                  : "bg-white border-[#E2E8F0] text-[#64748B] hover:border-blue-200 hover:text-blue-700"
               )}
             >
               {c.label}
@@ -62,9 +62,9 @@ export function SimulationControls() {
       <div className="flex justify-end pt-4 border-t border-[#E2E8F0]">
         <button 
           onClick={handleReset}
-          className="px-6 py-2 rounded-lg font-bold text-xs tracking-widest uppercase bg-[#F5F7FA] text-[#64748B] border border-[#E2E8F0] hover:bg-[#e2e8f0] transition-colors"
+          className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition hover:border-blue-300 hover:text-blue-700"
         >
-          RESET
+          Reset condition
         </button>
       </div>
     </div>

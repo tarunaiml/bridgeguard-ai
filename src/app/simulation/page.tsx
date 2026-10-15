@@ -1,14 +1,11 @@
 import { SimulationControls } from "@/components/Simulation/SimulationControls";
 import { TiltMonitor } from "@/components/Simulation/TiltMonitor";
-import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
+import { PageIntro } from "@/components/Layout/PageIntro";
 
 export default function SimulationPage() {
   return (
-    <div className="space-y-8 pb-12">
-      <div>
-        <h2 className="text-3xl font-black text-white tracking-tighter mb-2">SIMULATION ENGINE</h2>
-        <p className="text-sm font-bold text-slate-400 tracking-widest uppercase mt-1">Control the structural state of the prototype bridge model.</p>
-      </div>
+    <div className="mx-auto max-w-[1280px] space-y-6 pb-12">
+      <PageIntro eyebrow="Assessment controls" title="Set the test condition" description="Use the simulator to change the prototype condition or enter a manual reading for a one-off assessment." />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
@@ -17,10 +14,6 @@ export default function SimulationPage() {
         <div>
           <TiltMonitor />
         </div>
-      </div>
-      
-      <div className="mt-8">
-        <ArchitectureDiagram />
       </div>
     </div>
   );

@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Layout/Header";
 import { SimulationProvider } from "@/context/SimulationContext";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "BridgeGuard ML",
@@ -18,10 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#F5F7FA] text-[#111827] min-h-screen flex flex-col`}>
+      <body className="min-h-screen bg-slate-50 font-sans text-slate-950 flex flex-col">
         <SimulationProvider>
           <Header />
-          <main className="flex-1 w-full max-w-[1200px] mx-auto p-4 md:p-6 lg:p-8">
+          <main className="flex-1 w-full max-w-[1440px] mx-auto px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
             {children}
           </main>
         </SimulationProvider>

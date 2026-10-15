@@ -6,50 +6,34 @@ import { SimulationControls } from "@/components/Simulation/SimulationControls";
 import { PredictionCard } from "@/components/Dashboard/PredictionCard";
 import { ShapExplanation } from "@/components/Dashboard/ShapExplanation";
 import { HealthTrend } from "@/components/Charts/HealthTrend";
-import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
-import { DatasetCaseStudy } from "@/components/Dashboard/DatasetCaseStudy";
 import { SystemStatus } from "@/components/Dashboard/SystemStatus";
+import { HealthScore } from "@/components/Dashboard/HealthScore";
+import { KPIs } from "@/components/Dashboard/KPIs";
+import { Overview } from "@/components/Dashboard/Overview";
+import { PageIntro } from "@/components/Layout/PageIntro";
 
 export default function Dashboard() {
   return (
-    <div className="pb-16 pt-8 max-w-[1000px] mx-auto px-4 md:px-0 flex flex-col space-y-6">
-      
-      {/* Title */}
-      <div className="mb-2 text-center md:text-left">
-        <h2 className="text-3xl font-black text-[#111827] tracking-tighter mb-1">BRIDGEGUARD ML</h2>
-        <div className="inline-block bg-[#eff6ff] border border-[#bfdbfe] text-[#1D4ED8] text-[11px] font-medium px-4 py-2.5 rounded-lg leading-relaxed max-w-2xl text-left mt-3">
-          <strong className="uppercase tracking-widest block mb-1">Structural Health Monitoring using Machine Learning</strong>
-          The current live dashboard uses simulated sensor values for demonstration until physical sensors and the real ML pipeline are connected. Do not interpret these as real bridge measurements.
-        </div>
+    <div className="mx-auto max-w-[1280px] space-y-6 pb-12">
+      <PageIntro eyebrow="BridgeGuard ML" title="Structural health overview" description="A focused view of the current prototype feed, condition assessment, and available ML evidence." />
+      <div className="rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm leading-6 text-blue-900">This academic prototype uses simulation or user-entered values until the physical sensor pipeline is connected. It is not a certified bridge-safety system.</div>
+      <Overview />
+      <div className="grid gap-6 xl:grid-cols-[290px_1fr]">
+        <HealthScore />
+        <KPIs />
       </div>
-
-      <SensorInputs />
-
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(300px,.85fr)]">
         <VibrationChart />
         <SimulationControls />
       </div>
-
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(340px,.8fr)]">
+        <HealthTrend />
         <PredictionCard />
-        <ShapExplanation />
       </div>
-
-      <HealthTrend />
-      
-      <DatasetCaseStudy />
-      
+      <ShapExplanation />
+      <SensorInputs />
       <SystemStatus />
-
-      <ArchitectureDiagram />
-
-      {/* Disclaimer */}
-      <div className="mt-12 pt-8 border-t border-[#E2E8F0] text-center">
-        <h5 className="text-[10px] font-black text-[#111827] uppercase tracking-widest mb-2">ACADEMIC PROTOTYPE</h5>
-        <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-widest leading-relaxed max-w-3xl mx-auto">
-          BridgeGuard ML is an academic proof-of-concept and is not a certified structural safety system. SHAP explains the contribution of model features to a prediction. It does not establish structural causality or certify bridge safety.
-        </p>
-      </div>
+      <div className="border-t border-slate-200 pt-6 text-center text-xs leading-5 text-slate-500">SHAP indicates model-feature contribution, not structural causality. Review data and methodology before drawing engineering conclusions.</div>
 
     </div>
   );
