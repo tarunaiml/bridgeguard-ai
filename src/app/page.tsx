@@ -12,6 +12,10 @@ import { KPIs } from "@/components/Dashboard/KPIs";
 import { Overview } from "@/components/Dashboard/Overview";
 import { PageIntro } from "@/components/Layout/PageIntro";
 
+import { ModelComparison } from "@/components/Dashboard/ModelComparison";
+import { DatasetCaseStudy } from "@/components/Dashboard/DatasetCaseStudy";
+import { ScenarioCoverage } from "@/components/Dashboard/ScenarioCoverage";
+
 export default function Dashboard() {
   return (
     <div className="mx-auto max-w-[1280px] space-y-6 pb-12">
@@ -31,6 +35,9 @@ export default function Dashboard() {
         <PredictionCard />
       </div>
       <ShapExplanation />
+      <ModelComparison />
+      <ScenarioCoverage />
+      <DatasetCaseStudy />
       <SensorInputs />
       <SystemStatus />
       <div className="border-t border-slate-200 pt-6 text-center text-xs leading-5 text-slate-500">SHAP indicates model-feature contribution, not structural causality. Review data and methodology before drawing engineering conclusions.</div>

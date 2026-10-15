@@ -1,13 +1,17 @@
 import { PredictionCard } from "@/components/Dashboard/PredictionCard";
 import { ShapExplanation } from "@/components/Dashboard/ShapExplanation";
+import { ModelComparison } from "@/components/Dashboard/ModelComparison";
+import { ScenarioCoverage } from "@/components/Dashboard/ScenarioCoverage";
 import { PageIntro } from "@/components/Layout/PageIntro";
 
 export default function PredictionPage() {
   return (
     <div className="mx-auto max-w-[1100px] space-y-6 pb-12">
-      <PageIntro eyebrow="Model output" title="Condition prediction" description="Model results and explanations appear only when the ML backend and a trained model are available." />
+      <PageIntro eyebrow="Model output" title="Condition prediction & Multi-Model Evaluation" description="Genuine model evaluation results, held-out real test set metrics, scenario matrix coverage, and SHAP feature-level explanations." />
       <PredictionCard />
       <ShapExplanation />
+      <ModelComparison />
+      <ScenarioCoverage />
       
       <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         <h3 className="mb-6 text-sm font-semibold text-slate-950">Prototype health-score bands</h3>

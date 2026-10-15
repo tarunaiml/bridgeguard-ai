@@ -1,7 +1,8 @@
 {
   "dataset": "Ponneri Bridge - Local Train",
-  "task": "Operational State Detection (Train Passage)",
+  "task": "Operational State Detection (Dynamic Passage Anomaly)",
   "selected_model": "Logistic Regression",
+  "selection_rationale": "Selected Logistic Regression with F1-score 1.0000. It demonstrates 100% precision and recall on the held-out real-world test set while maintaining exact, closed-form SHAP LinearExplainer explainability without stochastic sampling approximation error.",
   "feature_names": [
     "A1_Acc_1_Y_rms",
     "A1_Acc_1_Y_peak",
@@ -28,6 +29,10 @@
     "B4_Acc3_X_peak",
     "B4_Acc3_X_var"
   ],
+  "feature_count": 24,
+  "split_method": "Strict time-based non-overlapping split (Train w<=32, Held-out Test w>32)",
+  "train_samples": 33,
+  "test_samples": 20,
   "baseline": {
     "mean": {
       "A1_Acc_1_Y_rms": 0.00024133892235870974,
@@ -93,25 +98,213 @@
       "Accuracy": 1.0,
       "Precision": 1.0,
       "Recall": 1.0,
-      "F1": 1.0
+      "F1": 1.0,
+      "Confusion_Matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "Training_Time_ms": 49.61,
+      "Inference_Time_ms": 0.0
     },
-    "SVM": {
-      "Accuracy": 1.0,
-      "Precision": 1.0,
+    "Decision Tree": {
+      "Accuracy": 0.95,
+      "Precision": 0.8333333333333334,
       "Recall": 1.0,
-      "F1": 1.0
+      "F1": 0.9090909090909091,
+      "Confusion_Matrix": [
+        [
+          14,
+          1
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "Training_Time_ms": 1.0,
+      "Inference_Time_ms": 0.0
     },
     "Random Forest": {
       "Accuracy": 1.0,
       "Precision": 1.0,
       "Recall": 1.0,
-      "F1": 1.0
+      "F1": 1.0,
+      "Confusion_Matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "Training_Time_ms": 66.57,
+      "Inference_Time_ms": 4.118
     },
-    "Isolation Forest": {
-      "Accuracy": 0.6190476190476191,
+    "Support Vector Machine": {
+      "Accuracy": 1.0,
+      "Precision": 1.0,
+      "Recall": 1.0,
+      "F1": 1.0,
+      "Confusion_Matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "Training_Time_ms": 1.93,
+      "Inference_Time_ms": 0.0
+    },
+    "Isolation Forest (Unsupervised Benchmark)": {
+      "Accuracy": 0.6,
       "Precision": 0.38461538461538464,
       "Recall": 1.0,
-      "F1": 0.5555555555555556
+      "F1": 0.5555555555555556,
+      "Confusion_Matrix": [
+        [
+          7,
+          8
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "Training_Time_ms": 15.0,
+      "Inference_Time_ms": 1.0
+    }
+  },
+  "candidate_models_detailed": {
+    "Logistic Regression": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "training_time_ms": 49.61,
+      "inference_time_ms": 0.0,
+      "family": "Linear Model",
+      "hyperparameters": {
+        "penalty": "l2",
+        "C": 1.0,
+        "solver": "lbfgs",
+        "random_state": 42
+      }
+    },
+    "Decision Tree": {
+      "accuracy": 0.95,
+      "precision": 0.8333333333333334,
+      "recall": 1.0,
+      "f1_score": 0.9090909090909091,
+      "confusion_matrix": [
+        [
+          14,
+          1
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "training_time_ms": 1.0,
+      "inference_time_ms": 0.0,
+      "family": "Tree-based",
+      "hyperparameters": {
+        "max_depth": 5,
+        "min_samples_split": 2,
+        "random_state": 42
+      }
+    },
+    "Random Forest": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "training_time_ms": 66.57,
+      "inference_time_ms": 4.118,
+      "family": "Ensemble (Bagging)",
+      "hyperparameters": {
+        "n_estimators": 100,
+        "max_depth": 5,
+        "random_state": 42
+      }
+    },
+    "Support Vector Machine": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "confusion_matrix": [
+        [
+          15,
+          0
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "training_time_ms": 1.93,
+      "inference_time_ms": 0.0,
+      "family": "Kernel Method",
+      "hyperparameters": {
+        "kernel": "linear",
+        "probability": true,
+        "random_state": 42
+      }
+    },
+    "Isolation Forest (Unsupervised Benchmark)": {
+      "accuracy": 0.6,
+      "precision": 0.38461538461538464,
+      "recall": 1.0,
+      "f1_score": 0.5555555555555556,
+      "confusion_matrix": [
+        [
+          7,
+          8
+        ],
+        [
+          0,
+          5
+        ]
+      ],
+      "training_time_ms": 15.0,
+      "inference_time_ms": 1.0,
+      "family": "Unsupervised Anomaly Detection",
+      "hyperparameters": {
+        "contamination": 0.2,
+        "random_state": 42
+      }
     }
   }
 }
